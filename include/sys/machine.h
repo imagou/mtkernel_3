@@ -36,6 +36,13 @@
 
 #endif
 
+#ifdef _B_L475E_IOT01A_
+#include "sysdepend/b_l475e_iot01a/machine.h"
+
+#define Csym(sym) sym
+
+#endif
+
 /* ===== C compiler dependencies definitions ============================= */
 
 #ifdef __GNUC__

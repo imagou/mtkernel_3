@@ -6,8 +6,9 @@
 EXE_FILE := mtkernel_3
 
 # Specify only one target name
-TARGET := _IOTE_M367_
+#TARGET := _IOTE_M367_
 #TARGET := _IOTE_RX231_
+TARGET := _B_L475E_IOT01A_
 
 RM := rm -rf
 
@@ -23,12 +24,16 @@ INCPATH = -I"../include" -I"../config" -I"../kernel/knlinc"
 -include mtkernel_3/kernel/sysinit/subdir.mk
 -include mtkernel_3/kernel/inittask/subdir.mk
 -include mtkernel_3/app_sample/subdir.mk
+#-include mtkernel_3/_asp/subdir.mk
 
 ifeq ($(TARGET), _IOTE_M367_)
 include iote_m367.mk
 endif
 ifeq ($(TARGET), _IOTE_RX231_)
 include iote_rx231.mk
+endif
+ifeq ($(TARGET), _B_L475E_IOT01A_)
+include b_l475e_iot01a.mk
 endif
 
 ifneq ($(MAKECMDGOALS),clean)

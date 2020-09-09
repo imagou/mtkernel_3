@@ -38,7 +38,13 @@
  */
 void tsk1(INT stacd, void *exinf)
 {
-	tm_putstring("Start Task-1\n");
+	tm_putstring("Start Task-1 (1000msec Timer)\n");
+	int count = 0;
+
+	while (1) {
+		tk_dly_tsk(1000);
+		tm_printf("Time-out(%d)\n", ++count);
+	}
 
 	tk_exd_tsk();	/* Exit task */
 }
@@ -47,6 +53,8 @@ const T_CTSK	ctsk1	= {
 	0, (TA_HLNG | TA_RNG1), &tsk1, 10, 1024, 0
 };
 
+/* Temporary implementation */
+IMPORT BOOL tm_com_rcv_rdy(void);
 /* ---------------------------------------------------------
  *
  * User Task-2 Definition
@@ -54,7 +62,15 @@ const T_CTSK	ctsk1	= {
  */
 void tsk2(INT stacd, void *exinf)
 {
-	tm_putstring("Start Task-2\n");
+	tm_putstring("Start Task-2 (Echo back)\n");
+
+	while (1) {
+		if (tm_com_rcv_rdy()) {
+			INT ch = tm_getchar(1);
+			tm_putchar(ch);
+		}
+		tk_dly_tsk(1);
+	}
 
 	tk_exd_tsk();	/* Exit Task */
 }
